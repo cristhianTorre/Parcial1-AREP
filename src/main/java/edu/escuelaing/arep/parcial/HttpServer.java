@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.parcial.server;
+package edu.escuelaing.arep.parcial;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,10 +9,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 
+
 public class HttpServer {
-    private int port;
+    private static int port;
     private static URL url;
 
+    public static void main(String... args) throws IOException {
+        startServer(4545, args[0]);
+    }
 
     static {
         try {
@@ -22,7 +26,7 @@ public class HttpServer {
         }
     }
 
-    public void startServer(int httpPort) throws IOException {
+    public static void startServer(int httpPort, String ciudad) throws IOException {
         port = httpPort;
         ServerSocket serverSocket = null;
         try {
@@ -66,7 +70,7 @@ public class HttpServer {
         this.port = port;
     }
 
-    public int getPort() {
-        return this.port;
+    public static int getPort() {
+        return port;
     }
 }
