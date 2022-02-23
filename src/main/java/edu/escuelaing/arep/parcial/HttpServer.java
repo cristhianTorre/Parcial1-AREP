@@ -14,8 +14,18 @@ public class HttpServer {
     private static int port;
     private static URL url;
 
-    public static void main(String... args) throws IOException {
-        startServer(4545, args[0]);
+    private static HttpServer _instance = new HttpServer();
+
+    private HttpServer(){
+
+    }
+
+    private static HttpServer getInstance(){
+        return _instance;
+    }
+
+    public static void main(String... args) throws IOException{
+        HttpServer.getInstance().startServer(args);
     }
 
     static {
@@ -26,8 +36,8 @@ public class HttpServer {
         }
     }
 
-    public static void startServer(int httpPort, String ciudad) throws IOException {
-        port = httpPort;
+    public static void startServer(String[] args) throws IOException {
+        port = 35000;
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(getPort());
@@ -57,7 +67,8 @@ public class HttpServer {
                     break;
                 }
             }
-            outputLine = url.toString();
+            URL nuevaUrl = new URL("https://openweathermap.org/?ciudad="+inputLine);
+            outputLine = nuevaUrl.toString();
             out.println(outputLine);
             out.close();
             in.close();
